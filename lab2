@@ -1,0 +1,841 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| PERSON             |
+| companies          |
+| company            |
+| countries          |
+| departmentdet      |
+| dependents         |
+| employeedet        |
+| information_schema |
+| jobs               |
+| location           |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| regions            |
+| studentsdet        |
+| sys                |
++--------------------+
+18 rows in set (0.00 sec)
+
+mysql> delete database countries;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database countries' at line 1
+mysql> drop database countries;
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> drop database studentsdet;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> drop database location;
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> drop database employeedet;
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> drop database departmentdet;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> drop database dependents;
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> drop database regions;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> drop database jobs;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| PERSON             |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> create database details;
+Query OK, 1 row affected (0.13 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| PERSON             |
+| companies          |
+| company            |
+| details            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| sys                |
++--------------------+
+11 rows in set (0.01 sec)
+
+mysql> use datails;
+ERROR 1049 (42000): Unknown database 'datails'
+mysql> use details;
+Database changed
+mysql> create table jobs(job_id int primary key,job_title varchar(20),min_salary decimal(10,2),max_salary(10,2));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(10,2))' at line 1
+mysql> create table jobs (job_id int primary key, job_title varchar(20), min_salary decimal(10,2), max_salary(10,2) );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(10,2) )' at line 1
+mysql> create table jobs (job_id int primary key, job_title varchar(20), min_salary int, max_salary int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table jobs (job_id int primary key, job_title varchar(20), min_salary int, max_salary int);
+Query OK, 0 rows affected (0.60 sec)
+
+mysql> create table regions (region_id int primary key,region_name varchar(20));
+Query OK, 0 rows affected (1.38 sec)
+
+mysql> create table countries (country_id varchar(20) primary key, country_name varchar(20),region_id int,foreign key(region_id) references regions(region_id));
+Query OK, 0 rows affected (2.12 sec)
+
+mysql> create table locations (location_id int primary key,street_address varchar(20),postal_code varchar(20),city varchar(20),state_province varchar(20),country_id varchar(20),foreign key (country_id) references countries(country_id));
+Query OK, 0 rows affected (0.93 sec)
+
+mysql> create table departments(department_id int primary key,department_name varchar(20),location_id int,foreign key(location_id) references locations (location_id));
+Query OK, 0 rows affected (1.70 sec)
+
+mysql> create table employees (employee_id int primary key,first_name varchar(20),last_name varchar(20),email varchar(20) unique,phone_number varchar(20),hire_date date,job_id int,salary int,manager_id int,department_id int,foreign key (job_id) references jobs(job_id),foreign key(manager_id) references employees(employee_id) on delete set null,foreign key (department_id) references departments(department_id));
+Query OK, 0 rows affected (1.88 sec)
+
+mysql> craete table dependents(dependent_id int primary key,first_name varchar(20),last_name varchar(20),relationship varchar(20),employee_id int,foreign key (employee_id) references employees (employee_id) on delete cascade);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'craete table dependents(dependent_id int primary key,first_name varchar(20),last' at line 1
+mysql> create table dependents(dependent_id int primary key,first_name varchar(20),last_name varchar(20),relationship varchar(20),employee_id int,foreign key (employee_id) references employees (employee_id) on delete cascade);
+Query OK, 0 rows affected (0.83 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_details |
++-------------------+
+| countries         |
+| departments       |
+| dependents        |
+| employees         |
+| jobs              |
+| locations         |
+| regions           |
++-------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | NO   | PRI | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | NULL    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc countries;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| country_id   | varchar(20) | NO   | PRI | NULL    |       |
+| country_name | varchar(20) | YES  |     | NULL    |       |
+| region_id    | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc departments;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| department_id   | int         | NO   | PRI | NULL    |       |
+| department_name | varchar(20) | YES  |     | NULL    |       |
+| location_id     | int         | YES  | MUL | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc dependents;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| dependent_id | int         | NO   | PRI | NULL    |       |
+| first_name   | varchar(20) | YES  |     | NULL    |       |
+| last_name    | varchar(20) | YES  |     | NULL    |       |
+| relationship | varchar(20) | YES  |     | NULL    |       |
+| employee_id  | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc employees;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id   | int         | NO   | PRI | NULL    |       |
+| first_name    | varchar(20) | YES  |     | NULL    |       |
+| last_name     | varchar(20) | YES  |     | NULL    |       |
+| email         | varchar(20) | YES  | UNI | NULL    |       |
+| phone_number  | varchar(20) | YES  |     | NULL    |       |
+| hire_date     | date        | YES  |     | NULL    |       |
+| job_id        | int         | YES  | MUL | NULL    |       |
+| salary        | int         | YES  |     | NULL    |       |
+| manager_id    | int         | YES  | MUL | NULL    |       |
+| department_id | int         | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
+mysql> desc regions;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| region_id   | int         | NO   | PRI | NULL    |       |
+| region_name | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc locations;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| location_id    | int         | NO   | PRI | NULL    |       |
+| street_address | varchar(20) | YES  |     | NULL    |       |
+| postal_code    | varchar(20) | YES  |     | NULL    |       |
+| city           | varchar(20) | YES  |     | NULL    |       |
+| state_province | varchar(20) | YES  |     | NULL    |       |
+| country_id     | varchar(20) | YES  | MUL | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into jobs(job_id,job_title,min_salary,max_salary) values (1,'software engineer',50000,120000),(2,'database administrator',60000,100000),(2,'database administrator',60000,100000^[[D^[[D^[[D^                                                       
+2,'database administrator',60000,1
+^C
+mysql> insert into jobs(job_id,job_title,min_salary,max_salary) values (1,'software engineer',50000,120000),(2,'database administrator',60000,100000),(3,'HR manager',55000,95000),(4,'manager',65000,120000);
+ERROR 1406 (22001): Data too long for column 'job_title' at row 2
+mysql> insert into jobs(job_id,job_title,min_salary,max_salary) values (1,'software engineer',50000,120000),(2,'DB administrator',60000,100000),(3,'HR manager',55000,95000),(4,'manager',65000,120000);
+Query OK, 4 rows affected (0.16 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into regions(region_id,region_name) values (12,'gujarath'),(13,'delhi'),(14,'chennai'),(15,'goa');
+Query OK, 4 rows affected (0.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into countries (country_id,country_name,region_id)values ('us','united states',12),('in','india',13),('ge','germany',14),('ch','china',15);
+Query OK, 4 rows affected (0.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into locations (location_id,street_address,postal_code,city,state_province,country_id) values (1000,'121 main st','45643','new delhi','ny','us'),(1200,'342 high st','54664','banglore','br','in'),(1700,'657 central st','23536','berlin','be','ge'),(1800,'455 high st','34546','paris','ps','ch');
+Query OK, 4 rows affected (0.15 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into departments(department_id,depart_name,location_id) values (30,'engineering',1000),(31,'HR',1200),(32,'finance',1700),(33,'marketing',1800);
+ERROR 1054 (42S22): Unknown column 'depart_name' in 'field list'
+mysql> insert into departments(department_id,department_name,location_id) values (30,'engineering',1000),(31,'HR',1200),(32,'finance',1700),(33,'marketing',1800);
+Query OK, 4 rows affected (0.14 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into employees(employee_id,first_name,last_name,email,phone_number,hire_date,job_id,salary,manager_id,department_id)values (101,'smith','doe','smith343@example.com','234-456-2345','2020-06-15',1,90000,101,30),101,'smith','doe','smith343@example.com','234-456-2345','2020-06-15',1,90000,101,30),
+    -> 
+    -> insert into employees(employee_id,first_name,last_name,email,phone_number,hire_date,job_id,salary,manager_id,department_id)values (101,'smith','doe','smith343@example.com','234-456-2345','2020-06-15',1,90000,101,30),(102,'smith','taylor','smith43@example.com','256-456-2345','2020-06-14',2,95000,102,31),(103,'leela','bob','leela23@example.com','345-564-3452','2021-05-14',3,75000,103,32),(104,'lima','benny','lima44@example.com','234-564-2341','2023-06-11',4,85000,104,33);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '101,'smith','doe','smith343@example.com','234-456-2345','2020-06-15',1,90000,101' at line 1
+mysql>   insert into employees(employee_id,first_name,last_name,email,phone_number,hire_date,job_id,salary,manager_id,department_id)values (101,'smith','doe','smith343@example.com','234-456-2345','2020-06-15',1,90000,101,30),(102,'smith','taylor','smith43@example.com','256-456-2345','2020-06-14',2,95000,102,31),(103,'leela','bob','leela23@example.com','345-564-3452','2021-05-14',3,75000,103,32),(104,'lima','benny','lima44@example.com','234-564-2341','2023-06-11',4,85000,104,33);
+Query OK, 4 rows affected (0.13 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into dependents (dependent_id,first_name,last_name,relationship,employee_id) values(201,'emily','doe','daughter',101),(202,'mina','benny','son',102),(203,'lilly','betty','wife',103),(204,'litty','joe','mother',104);
+Query OK, 4 rows affected (0.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | NO   | PRI | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | NULL    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from jobs;
++--------+-------------------+------------+------------+
+| job_id | job_title         | min_salary | max_salary |
++--------+-------------------+------------+------------+
+|      1 | software engineer |      50000 |     120000 |
+|      2 | DB administrator  |      60000 |     100000 |
+|      3 | HR manager        |      55000 |      95000 |
+|      4 | manager           |      65000 |     120000 |
++--------+-------------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from departments;
++---------------+-----------------+-------------+
+| department_id | department_name | location_id |
++---------------+-----------------+-------------+
+|            30 | engineering     |        1000 |
+|            31 | HR              |        1200 |
+|            32 | finance         |        1700 |
+|            33 | marketing       |        1800 |
++---------------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from depentents;
+ERROR 1146 (42S02): Table 'details.depentents' doesn't exist
+mysql> select * from dependents;
++--------------+------------+-----------+--------------+-------------+
+| dependent_id | first_name | last_name | relationship | employee_id |
++--------------+------------+-----------+--------------+-------------+
+|          201 | emily      | doe       | daughter     |         101 |
+|          202 | mina       | benny     | son          |         102 |
+|          203 | lilly      | betty     | wife         |         103 |
+|          204 | litty      | joe       | mother       |         104 |
++--------------+------------+-----------+--------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|         101 | smith      | doe       | smith343@example.com | 234-456-2345 | 2020-06-15 |      1 |  90000 |        101 |            30 |
+|         102 | smith      | taylor    | smith43@example.com  | 256-456-2345 | 2020-06-14 |      2 |  95000 |        102 |            31 |
+|         103 | leela      | bob       | leela23@example.com  | 345-564-3452 | 2021-05-14 |      3 |  75000 |        103 |            32 |
+|         104 | lima       | benny     | lima44@example.com   | 234-564-2341 | 2023-06-11 |      4 |  85000 |        104 |            33 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from location;
+ERROR 1146 (42S02): Table 'details.location' doesn't exist
+mysql> select * from locations;
++-------------+----------------+-------------+-----------+----------------+------------+
+| location_id | street_address | postal_code | city      | state_province | country_id |
++-------------+----------------+-------------+-----------+----------------+------------+
+|        1000 | 121 main st    | 45643       | new delhi | ny             | us         |
+|        1200 | 342 high st    | 54664       | banglore  | br             | in         |
+|        1700 | 657 central st | 23536       | berlin    | be             | ge         |
+|        1800 | 455 high st    | 34546       | paris     | ps             | ch         |
++-------------+----------------+-------------+-----------+----------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|        12 | gujarath    |
+|        13 | delhi       |
+|        14 | chennai     |
+|        15 | goa         |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from countries;
++------------+---------------+-----------+
+| country_id | country_name  | region_id |
++------------+---------------+-----------+
+| ch         | china         |        15 |
+| ge         | germany       |        14 |
+| in         | india         |        13 |
+| us         | united states |        12 |
++------------+---------------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| PERSON             |
+| college            |
+| companies          |
+| company            |
+| details            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| sys                |
++--------------------+
+12 rows in set (0.03 sec)
+
+mysql> use datails;
+ERROR 1049 (42000): Unknown database 'datails'
+mysql> use details;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_details |
++-------------------+
+| countries         |
+| departments       |
+| dependents        |
+| employees         |
+| jobs              |
+| locations         |
+| regions           |
++-------------------+
+7 rows in set (0.00 sec)
+
+mysql> desc jobs;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| job_id     | int         | NO   | PRI | NULL    |       |
+| job_title  | varchar(20) | YES  |     | NULL    |       |
+| min_salary | int         | YES  |     | NULL    |       |
+| max_salary | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from jobs;
++--------+-------------------+------------+------------+
+| job_id | job_title         | min_salary | max_salary |
++--------+-------------------+------------+------------+
+|      1 | software engineer |      50000 |     120000 |
+|      2 | DB administrator  |      60000 |     100000 |
+|      3 | HR manager        |      55000 |      95000 |
+|      4 | manager           |      65000 |     120000 |
++--------+-------------------+------------+------------+
+4 rows in set (0.02 sec)
+
+mysql> select * from departments;
++---------------+-----------------+-------------+
+| department_id | department_name | location_id |
++---------------+-----------------+-------------+
+|            30 | engineering     |        1000 |
+|            31 | HR              |        1200 |
+|            32 | finance         |        1700 |
+|            33 | marketing       |        1800 |
++---------------+-----------------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from departments;
++---------------+-----------------+-------------+
+| department_id | department_name | location_id |
++---------------+-----------------+-------------+
+|            30 | engineering     |        1000 |
+|            31 | HR              |        1200 |
+|            32 | finance         |        1700 |
+|            33 | marketing       |        1800 |
++---------------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from depentents;
+ERROR 1146 (42S02): Table 'details.depentents' doesn't exist
+mysql> select * from locations;
++-------------+----------------+-------------+-----------+----------------+------------+
+| location_id | street_address | postal_code | city      | state_province | country_id |
++-------------+----------------+-------------+-----------+----------------+------------+
+|        1000 | 121 main st    | 45643       | new delhi | ny             | us         |
+|        1200 | 342 high st    | 54664       | banglore  | br             | in         |
+|        1700 | 657 central st | 23536       | berlin    | be             | ge         |
+|        1800 | 455 high st    | 34546       | paris     | ps             | ch         |
++-------------+----------------+-------------+-----------+----------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from depentents;
+ERROR 1146 (42S02): Table 'details.depentents' doesn't exist
+mysql> select * from employees;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|         101 | smith      | doe       | smith343@example.com | 234-456-2345 | 2020-06-15 |      1 |  90000 |        101 |            30 |
+|         102 | smith      | taylor    | smith43@example.com  | 256-456-2345 | 2020-06-14 |      2 |  95000 |        102 |            31 |
+|         103 | leela      | bob       | leela23@example.com  | 345-564-3452 | 2021-05-14 |      3 |  75000 |        103 |            32 |
+|         104 | lima       | benny     | lima44@example.com   | 234-564-2341 | 2023-06-11 |      4 |  85000 |        104 |            33 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from dependents;
++--------------+------------+-----------+--------------+-------------+
+| dependent_id | first_name | last_name | relationship | employee_id |
++--------------+------------+-----------+--------------+-------------+
+|          201 | emily      | doe       | daughter     |         101 |
+|          202 | mina       | benny     | son          |         102 |
+|          203 | lilly      | betty     | wife         |         103 |
+|          204 | litty      | joe       | mother       |         104 |
++--------------+------------+-----------+--------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from regions;
++-----------+-------------+
+| region_id | region_name |
++-----------+-------------+
+|        12 | gujarath    |
+|        13 | delhi       |
+|        14 | chennai     |
+|        15 | goa         |
++-----------+-------------+
+4 rows in set (0.02 sec)
+
+mysql> select * from countries;
++------------+---------------+-----------+
+| country_id | country_name  | region_id |
++------------+---------------+-----------+
+| ch         | china         |        15 |
+| ge         | germany       |        14 |
+| in         | india         |        13 |
+| us         | united states |        12 |
++------------+---------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select e.employee_id , e.first_name , e.last_name , e.email , d.departments_name , l.location_id from employees e join department d on e.department_id=d.deprtment_id join locations l on d.location_id =l.location_id where l.location_id <> 1700;
+ERROR 1146 (42S02): Table 'details.department' doesn't exist
+mysql> select e.employee_id , e.first_name , e.last_name , e.email , d.department_name , l.location_id from employees e join department d on e.department_id=d.depratment_id join locations l on d.location_id =l.location_id where l.location_id <> 1700;
+ERROR 1146 (42S02): Table 'details.department' doesn't exist
+mysql> select e.employee_id , e.first_name , e.last_name , e.email , departments.department_name , l.location_id from employees e join department d on e.department_id=departments.depratment_id join locat
+ions l on d.location_id =l.location_id where l.location_id <> 1700;
+ERROR 1146 (42S02): Table 'details.department' doesn't exist
+mysql> select e.* from employees e join departments d on e.departments_id d.department_id join locations l on d.location_id =l.location_id where l.location_id =1700;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'd.department_id join locations l on d.location_id =l.location_id where l.locatio' at line 1
+mysql> select employees.employee_id , employees.first_name , employees.last_name , employees.email , departments.department_name , locations.location_id from employees  join departments d on employees.department_id=departments.depratment_id join locations on departments.location_id =locations.location_id where locations.location_id <> 1700;
+ERROR 1054 (42S22): Unknown column 'departments.department_name' in 'field list'
+mysql> select employee.* from employees join departements on employees.department_id = departments.department_id join locations on departments.location
+    -> select employee.* from employees join departments on employees.department_id = departments.department_id join locations on departments.location_id= locations.location_id where locations.location_id =1700;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select employee.* from employees join departments on employees.department_id = d' at line 2
+mysql> select employee.* from employees join departements on employees.department_id = departments.department_id join locations on departments.location select employee.* from employees join departments on employees.department_id = departments.department_id join locations on departments.location_id= locations.location_id where locations.location_id =1700;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select employee.* from employees join departments on employees.department_id = d' at line 1
+mysql> select employee.* from employees join departments on employees.department_id = departments.department_id join locations on departments.location select employee.* from employees join departments on employees.department_id = departments.department_id join locations on departments.location_id= locations.location_id where locations.location_id =1700;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select employee.* from employees join departments on employees.department_id = d' at line 1
+mysql>  select employee.* from employees join departments on employees.department_id = departments.department_id join locations on departments.location_id= locations.location_id where locations.location_id =1700;
+ERROR 1051 (42S02): Unknown table 'employee'
+mysql>  select employees.* from employees join departments on employees.department_id = departments.department_id join locations on departments.location_id= locations.location_id where locations.location_id =1700;
++-------------+------------+-----------+---------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email               | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+---------------------+--------------+------------+--------+--------+------------+---------------+
+|         103 | leela      | bob       | leela23@example.com | 345-564-3452 | 2021-05-14 |      3 |  75000 |        103 |            32 |
++-------------+------------+-----------+---------------------+--------------+------------+--------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select e.employee_id , e.first_name , e.last_name,e.email,d.department_name ,l.location_id from employees e join departments d on e.department_id = d.department_id join locations l on d.location_id = l.location_id where l.location_id <> 1700 ;
++-------------+------------+-----------+----------------------+-----------------+-------------+
+| employee_id | first_name | last_name | email                | department_name | location_id |
++-------------+------------+-----------+----------------------+-----------------+-------------+
+|         101 | smith      | doe       | smith343@example.com | engineering     |        1000 |
+|         102 | smith      | taylor    | smith43@example.com  | HR              |        1200 |
+|         104 | lima       | benny     | lima44@example.com   | marketing       |        1800 |
++-------------+------------+-----------+----------------------+-----------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select employee_id , first_name , last_name ,email,salary from employees where salary=(select max(salary) from employees);
++-------------+------------+-----------+---------------------+--------+
+| employee_id | first_name | last_name | email               | salary |
++-------------+------------+-----------+---------------------+--------+
+|         102 | smith      | taylor    | smith43@example.com |  95000 |
++-------------+------------+-----------+---------------------+--------+
+1 row in set (0.03 sec)
+
+mysql> select employee_id , first_name ,last_name , email ,salary from employees where salary> (select avg(salary) from employees);
++-------------+------------+-----------+----------------------+--------+
+| employee_id | first_name | last_name | email                | salary |
++-------------+------------+-----------+----------------------+--------+
+|         101 | smith      | doe       | smith343@example.com |  90000 |
+|         102 | smith      | taylor    | smith43@example.com  |  95000 |
++-------------+------------+-----------+----------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select distinct d.department_id , d.department_name from departments d join employees e on d.department_id = e.department_id where e.salary > 10000;
++---------------+-----------------+
+| department_id | department_name |
++---------------+-----------------+
+|            30 | engineering     |
+|            31 | HR              |
+|            32 | finance         |
+|            33 | marketing       |
++---------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select deaprtment_id, department_name from departments where department_id not in (select distinct department_id from employees where salary > 10000);
+ERROR 1054 (42S22): Unknown column 'deaprtment_id' in 'field list'
+mysql> select department_id, department_name from departments where department_id not in (select distinct department_id from employees where salary > 10000);
+Empty set (0.00 sec)
+
+mysql> select employee_id , first_name , last_name , email, salary from employees where salary > all ( select min (salary)from employees group by department_id );
+ERROR 1630 (42000): FUNCTION details.min does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> manual
+    -> 
+    -> manual;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'manual
+
+manual' at line 1
+mysql> select employee_id , first_name , last_name , email, salary from employees where salary > all ( select MIN  (salary)from employees group by department_id );
+ERROR 1630 (42000): FUNCTION details.MIN does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select e.* from employees e where e.salary > (select min (salary) from employees 
+    -> select e.* from employees e where e.salary > (select min (salary) from employees );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select e.* from employees e where e.salary > (select min (salary) from employees' at line 2
+mysql> SELECT * FROM employees WHERE salary > ( SELECT MIN (salary) FROM employees);
+ERROR 1630 (42000): FUNCTION details.MIN does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select min(salary) from employees;
++-------------+
+| min(salary) |
++-------------+
+|       75000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select e.* from employees e where e.salary > ( select min (salary)from emplolyees );
+ERROR 1146 (42S02): Table 'details.emplolyees' doesn't exist
+mysql> select e.* from employees e where e.salary > ( select min (salary)from employees );
+ERROR 1630 (42000): FUNCTION details.min does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select from employees where salary > select min (salary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employees where salary > select min (salary)' at line 1
+mysql> select salary from employees order by salary asc;
++--------+
+| salary |
++--------+
+|  75000 |
+|  85000 |
+|  90000 |
+|  95000 |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employees where salary > (select distinct min (salary )from employees);
+ERROR 1630 (42000): FUNCTION details.min does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select * from employees where salary > (select  min (salary )from employees);
+ERROR 1630 (42000): FUNCTION details.min does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> use details;
+Database changed
+mysql> select * from employees where > (select min (salary) from employees where salary is not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> (select min (salary) from employees where salary is not null)' at line 1
+mysql> select * from employees where salary > (select min (salary) from employees where salary is not null);
+ERROR 1630 (42000): FUNCTION details.min does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select min (salary ) from employees;
+ERROR 1630 (42000): FUNCTION details.min does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> SELECT MIN(salary) FROM employees;
++-------------+
+| MIN(salary) |
++-------------+
+|       75000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employees where salary > (select min(salary) from employees where salary is not null);
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|         101 | smith      | doe       | smith343@example.com | 234-456-2345 | 2020-06-15 |      1 |  90000 |        101 |            30 |
+|         102 | smith      | taylor    | smith43@example.com  | 256-456-2345 | 2020-06-14 |      2 |  95000 |        102 |            31 |
+|         104 | lima       | benny     | lima44@example.com   | 234-564-2341 | 2023-06-11 |      4 |  85000 |        104 |            33 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from employees where salary > (select  min(salary )from employees);
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|         101 | smith      | doe       | smith343@example.com | 234-456-2345 | 2020-06-15 |      1 |  90000 |        101 |            30 |
+|         102 | smith      | taylor    | smith43@example.com  | 256-456-2345 | 2020-06-14 |      2 |  95000 |        102 |            31 |
+|         104 | lima       | benny     | lima44@example.com   | 234-564-2341 | 2023-06-11 |      4 |  85000 |        104 |            33 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select employee_id , first
+    -> select employee_id , first_name ,last_name ,email,salary from employees where salary >= all (select max(salary) from employees group by department_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select employee_id , first_name ,last_name ,email,salary from employees where sa' at line 2
+mysql> select employee_id , first select employee_id , first_name ,last_name ,email,salary from employees where salary >= all (select max(salary) from employees group by department_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select employee_id , first_name ,last_name ,email,salary from employees where sa' at line 1
+mysql> select employee_id , first_name ,last_name ,email,salary from employees where salary >= all (select max(salary) from employees group by department_id);
++-------------+------------+-----------+---------------------+--------+
+| employee_id | first_name | last_name | email               | salary |
++-------------+------------+-----------+---------------------+--------+
+|         102 | smith      | taylor    | smith43@example.com |  95000 |
++-------------+------------+-----------+---------------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select avg(avg_salary) as average_of_average_salary from(select avg(salary) as avg_salary from employees group by department_id) as department_avg;
++---------------------------+
+| average_of_average_salary |
++---------------------------+
+|            86250.00000000 |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select employee_id , first_name ,last_name ,salary , (select avg(salary) from employees ) as average_salary ,salary-(select avg(salary) from employees) as salary_difference from employees;
++-------------+------------+-----------+--------+----------------+-------------------+
+| employee_id | first_name | last_name | salary | average_salary | salary_difference |
++-------------+------------+-----------+--------+----------------+-------------------+
+|         101 | smith      | doe       |  90000 |     86250.0000 |         3750.0000 |
+|         102 | smith      | taylor    |  95000 |     86250.0000 |         8750.0000 |
+|         103 | leela      | bob       |  75000 |     86250.0000 |       -11250.0000 |
+|         104 | lima       | benny     |  85000 |     86250.0000 |        -1250.0000 |
++-------------+------------+-----------+--------+----------------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select employee_id , first_name , last_name ,salary ,department_id from employees e1 where salary > (select avg(salary) from employees e2 where e1.department_id = e2.department_id);
+Empty set (0.00 sec)
+
+mysql> select e.employee_id ,e.first_name ,e.last_name from employees e left join dependents d on e.employee_id=d.employee_id where d.employee_id is null;
+Empty set (0.00 sec)
+
+mysql> select e.first_name , e.last_name ,d.department_name from employees e join departments d on e.department_id = d.department_id  where d.department_id in (1,2,3);
+Empty set (0.00 sec)
+
+mysql> select e.first_name , e.last_name , j.job_title , d.department_name ,e.salary from employees e join jobs j on e.job_id = j.job_id join departments d on e.department_id = d.department_id where e.department_id in (1,2,3) and e.salary > 10000;
+Empty set (0.00 sec)
+
+mysql> select d.department_name ,l.street_address , l.postal_code, c.country_name,r.region_name from departments d join locations l on d.location_id = l.location_id join countries c on l.country_id = c.country_id join regions r on c.region_id = r.region_id ;
++-----------------+----------------+-------------+---------------+-------------+
+| department_name | street_address | postal_code | country_name  | region_name |
++-----------------+----------------+-------------+---------------+-------------+
+| engineering     | 121 main st    | 45643       | united states | gujarath    |
+| HR              | 342 high st    | 54664       | india         | delhi       |
+| finance         | 657 central st | 23536       | germany       | chennai     |
+| marketing       | 455 high st    | 34546       | china         | goa         |
++-----------------+----------------+-------------+---------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select e.first_name , e.last
+    -> 
+    -> _name ,e.department_id , d.department_name from employee e left join departments d on e.department_id = d.department_id;
+ERROR 1146 (42S02): Table 'details.employee' doesn't exist
+mysql> select e.first_name , e.last_name ,e.department_id , d.department_name from employee e left join departments d on e.department_id = d.department_id;
+ERROR 1146 (42S02): Table 'details.employee' doesn't exist
+mysql> select e.first_name , e.last_name ,e.department_id , d.department_name from employees e left join departments d on e.department_id = d.department_id;
++------------+-----------+---------------+-----------------+
+| first_name | last_name | department_id | department_name |
++------------+-----------+---------------+-----------------+
+| smith      | doe       |            30 | engineering     |
+| smith      | taylor    |            31 | HR              |
+| leela      | bob       |            32 | finance         |
+| lima       | benny     |            33 | marketing       |
++------------+-----------+---------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select e.first_name , e.last_name , d.department_name , l.city , l.state_province from employees e join departments d on e.department_id = d.department_id join locations l on d.location_id =l.location_id where e.first_name like '%z%';
+Empty set (0.00 sec)
+
+mysql> select e.first_name , e.last_name , d.department_id ,d.department_name  from departments d left join employees  e on d.department_id =e.department_id;
++------------+-----------+---------------+-----------------+
+| first_name | last_name | department_id | department_name |
++------------+-----------+---------------+-----------------+
+| smith      | doe       |            30 | engineering     |
+| smith      | taylor    |            31 | HR              |
+| leela      | bob       |            32 | finance         |
+| lima       | benny     |            33 | marketing       |
++------------+-----------+---------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select e.first_name as employee, m.first_name as manager from employees e left join employees m on e.manager_id = m.employee_id;
++----------+---------+
+| employee | manager |
++----------+---------+
+| smith    | smith   |
+| smith    | smith   |
+| leela    | leela   |
+| lima     | lima    |
++----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select e.first_name , e.last_name , e.department_id from employees e where e.department_id = ( select departement_id from employees where last
+    -> _name ='Taylor' );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_name ='Taylor' )' at line 2
+mysql> select e.first_name , e.last_name , e.department_id from employees e where e.department_id = ( select departement_id from employees where last _name ='Taylor' );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_name ='Taylor' )' at line 1
+mysql> select e.first_name , e.last_name , e.department_id from employees e where e.department_id = ( select departement_id from employees where last_name ='Taylor' );
+ERROR 1054 (42S22): Unknown column 'departement_id' in 'field list'
+mysql> select e.first_name , e.last_name , e.department_id from employees e where e.department_id = ( select department_id from employees where last_name ='Taylor' );
++------------+-----------+---------------+
+| first_name | last_name | department_id |
++------------+-----------+---------------+
+| smith      | taylor    |            31 |
++------------+-----------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select j.job_title , e.first
+    -> _name || ' ' || e.last_name as employee, (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '|| ' ' || e.last_name as employee, (j.max_salary-e.salary) as salary_difference ' at line 2
+mysql> select j.job_title , e.first_name || ' ' || e.last_name as employee, (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id;
++-------------------+----------+-------------------+
+| job_title         | employee | salary_difference |
++-------------------+----------+-------------------+
+| software engineer |        0 |             30000 |
+| DB administrator  |        0 |              5000 |
+| HR manager        |        0 |             20000 |
+| manager           |        0 |             35000 |
++-------------------+----------+-------------------+
+4 rows in set, 10 warnings (0.00 sec)
+
+mysql> select j.job_title , e.first_name || '' || e.last_name as employee, (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id;
++-------------------+----------+-------------------+
+| job_title         | employee | salary_difference |
++-------------------+----------+-------------------+
+| software engineer |        0 |             30000 |
+| DB administrator  |        0 |              5000 |
+| HR manager        |        0 |             20000 |
+| manager           |        0 |             35000 |
++-------------------+----------+-------------------+
+4 rows in set, 10 warnings (0.00 sec)
+
+mysql> select j.job_title , e.first_name as  employee, (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id;
++-------------------+----------+-------------------+
+| job_title         | employee | salary_difference |
++-------------------+----------+-------------------+
+| software engineer | smith    |             30000 |
+| DB administrator  | smith    |              5000 |
+| HR manager        | leela    |             20000 |
+| manager           | lima     |             35000 |
++-------------------+----------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select j.job_title , e.first_name ,e.last_name as  employee, (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id;
++-------------------+------------+----------+-------------------+
+| job_title         | first_name | employee | salary_difference |
++-------------------+------------+----------+-------------------+
+| software engineer | smith      | doe      |             30000 |
+| DB administrator  | smith      | taylor   |              5000 |
+| HR manager        | leela      | bob      |             20000 |
+| manager           | lima       | benny    |             35000 |
++-------------------+------------+----------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select j.job_title , (e.first_name ,e.last_name) as  employee, (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id;
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> select j.job_title ,e.first_name ,e.last_name  (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id;
+ERROR 1305 (42000): FUNCTION e.last_name does not exist
+mysql> select j.job_title , (e.first_name ,e.last_name) , (j.max_salary-e.salary) as salary_difference from employees e join jobs j on e.job_id = j.job_id;
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> select d.department_name , avg(e.salary) as avg_salary, count(e.employee_id) as commission_employees from employees e join departments d on e.department_id = d.department_id where e.commission_pct is not null group by d.department_name;
+ERROR 1054 (42S22): Unknown column 'e.commission_pct' in 'where clause'
+mysql> select d.department_name , avg(e.salary) as avg_salary, count(e.employee_id) as commission_employees from employees e join departments d on e.department_id = d.department_id group by d.department_name;
++-----------------+------------+----------------------+
+| department_name | avg_salary | commission_employees |
++-----------------+------------+----------------------+
+| engineering     | 90000.0000 |                    1 |
+| HR              | 95000.0000 |                    1 |
+| finance         | 75000.0000 |                    1 |
+| marketing       | 85000.0000 |                    1 |
++-----------------+------------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> create view Delhi_employee as select e.first_name || ' ' || e.last_name as employee_name , e.employee_id , e.phone_number,j.job_title,d.department_name ,m.first_name || ' ' || m.last_name as manager_name from employees e join jobs j on e.job_id =j.job_id join departments d on e.department_id = d.department_id join locations l on d.location_id =l.location_id left join employees m on e.manager_id =m.employee_id where l.city='Deselect employees.employee_id , employees.first_name , employees.last_name , employees.email , departments.department_name , locations.location_id from employees  join departments d on employees.department_id=departments.depratment_id join locations on departments.location_id =locations.location_id where locations.location_id <> 1700;
+    '> create view Delhi_employee as select e.first_name || ' ' || e.last_name as employee_name , e.employee_id , e.phone_number,j.job_title,d.department_name ,m.first_name || ' ' || m.last_name as manager_name from employees e join jobs j on e.job_id =j.job_id join departments d on e.department_id = d.department_id join locations l on d.location_id =l.location_id left join employees m on e.manager_id =m.employee_id where l.city='Deselect employees.employee_id , employees.first_name , employees.last_name , employees.email , departments.department_name , locations.loc
+
+
+

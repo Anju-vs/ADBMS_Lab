@@ -1,0 +1,2720 @@
+s2mcabatch1@cscl6d14:~$ mysql -u 's2mcab1' -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database studentsdet;
+Query OK, 1 row affected (0.17 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> CREATE database students;
+Query OK, 1 row affected (0.22 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| company            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| purchase           |
+| students           |
+| studentsdet        |
+| sys                |
++--------------------+
+9 rows in set (0.04 sec)
+
+mysql> use students;
+Database changed
+mysql> create table student (roll_no integer,name varchar,dob date,address text,phone
+    -> create table student (roll_no integer,name varchar,dob date,address text,phone_no varchar,blood_grp varchar);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',dob date,address text,phone
+create table student (roll_no integer,name varchar,' at line 1
+mysql> create table student (roll_no integer,name varchar,dob date,address text,phone_no varchar,blood_grp varchar);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',dob date,address text,phone_no varchar,blood_grp varchar)' at line 1
+mysql> create table student (roll_no integer,name varchar(255),dob date,address
+text,phone_no varchar(255),blood_grp varchar(255));
+Query OK, 0 rows affected (1.04 sec)
+
+mysql> create table course (course_id integer,course_name varchar(40),course_duration integer);
+Query OK, 0 rows affected (1.26 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_students |
++--------------------+
+| course             |
+| student            |
++--------------------+
+2 rows in set (0.01 sec)
+
+mysql> alter table student drop 'blood_group';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''blood_group'' at line 1
+mysql> alter table student drop blood_group;
+ERROR 1091 (42000): Can't DROP 'blood_group'; check that column/key exists
+mysql> alter table student drop blood_grp;
+Query OK, 0 rows affected (0.48 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student modify column phone_no int;
+Query OK, 0 rows affected (1.46 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> drop database students;
+Query OK, 1 row affected (0.72 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| company            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> create database company;
+ERROR 1007 (HY000): Can't create database 'company'; database exists
+mysql> create database companies;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> use companies;
+Database changed
+mysql> create table employee (emp_no varchar(10),emp_name varchar(20),dob date,address text,mobile_no integer,dept_no varchar(20),salary integer);
+Query OK, 0 rows affected (1.29 sec)
+
+mysql> create table department (dept_no varchar(10),dept_name varchar(20),location varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| employee            |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> create table department (dept_no varchar(10),dept_name varchar(20),location varchar(20));
+Query OK, 0 rows affected (0.85 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| department          |
+| employee            |
++---------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
+| location  | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> desc employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_no    | varchar(10) | YES  |     | NULL    |       |
+| emp_name  | varchar(20) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| address   | text        | YES  |     | NULL    |       |
+| mobile_no | int         | YES  |     | NULL    |       |
+| dept_no   | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> show create table employee;
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                            |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `emp_no` varchar(10) DEFAULT NULL,
+  `emp_name` varchar(20) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `address` text,
+  `mobile_no` int DEFAULT NULL,
+  `dept_no` varchar(20) DEFAULT NULL,
+  `salary` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> desc employee;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| emp_no    | varchar(10) | YES  |     | NULL    |       |
+| emp_name  | varchar(20) | YES  |     | NULL    |       |
+| dob       | date        | YES  |     | NULL    |       |
+| address   | text        | YES  |     | NULL    |       |
+| mobile_no | int         | YES  |     | NULL    |       |
+| dept_no   | varchar(20) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> alter table employee add column designation varchar(20);
+Query OK, 0 rows affected (0.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | YES  |     | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table department drop  column location varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(20)' at line 1
+mysql> alter table department drop  column location;
+Query OK, 0 rows affected (0.61 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+9 rows in set (0.01 sec)
+
+mysql> use person;
+ERROR 1049 (42000): Unknown database 'person'
+mysql> use details;
+ERROR 1049 (42000): Unknown database 'details'
+mysql> use person_details;
+ERROR 1049 (42000): Unknown database 'person_details'
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use company;
+Database changed
+mysql> create table Persons (person_id (integer,PRIMARY KEY),Name (varchar(20),NOT NULL),Adhar (Number,NOT NULL,UNIQUE),Age (integer,CHECK>18));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(integer,PRIMARY KEY),Name (varchar(20),NOT NULL),Adhar (Number,NOT NULL,UNIQUE)' at line 1
+mysql> create table Persons (person_id integer,PRIMARY KEY,Name varchar(20) NOT
+NULL,Adhar Number integer NOT NULL UNIQUE,Age integer CHECK(Age>18));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',Name varchar(20) NOT NULL,Adhar Number integer NOT NULL UNIQUE,Age integer CHEC' at line 1
+mysql> create table Persons (person_id integer,PRIMARY KEY,Name varchar(20) NOT
+NULL,Adhar Number  NOT NULL UNIQUE,Age integer CHECK(Age>18));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',Name varchar(20) NOT NULL,Adhar Number  NOT NULL UNIQUE,Age integer CHECK(Age>1' at line 1
+mysql> create table Persons (person_id integer,PRIMARY KEY,Name varchar(20) NOT
+NULL,Adhar Number  NOT NULL UNIQUE,Age integer);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',Name varchar(20) NOT NULL,Adhar Number  NOT NULL UNIQUE,Age integer)' at line 1
+mysql> create table Persons (person_id integer PRIMARY KEY,Name varchar(20) NOT
+NULL,Adhar Number  NOT NULL UNIQUE,Age integer Check(Age>18));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Number  NOT NULL UNIQUE,Age integer Check(Age>18))' at line 1
+mysql> create table Persons (person_id integer PRIMARY KEY,Name varchar(20) NOT
+NULL,Adhar Number  NOT NULL UNIQUE,Age integer CHECK(Age>18));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Number  NOT NULL UNIQUE,Age integer CHECK(Age>18))' at line 1
+mysql> create table Persons (person_id integer,PRIMARY KEY,Name varchar(20) NOT
+NULL,Adhar Number  NOT NULL UNIQUE,Age integer);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',Name varchar(20) NOT NULL,Adhar Number  NOT NULL UNIQUE,Age integer)' at line 1
+mysql> create table persons(person_id integer primary key,name varchar(20) not null,Adhar number not null unique,Age integer);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'number not null unique,Age integer)' at line 1
+mysql> create table persons(person_id integer primary key,name varchar(20) not null,Adhar_number varchar(20)  not null unique,Age integer);
+Query OK, 0 rows affected (1.20 sec)
+
+mysql> create table persons(person_id integer primary key,name varchar(20) not null,Adhar_number varchar(20)  not null unique,Age integer check(Age>18));
+ERROR 1050 (42S01): Table 'persons' already exists
+mysql> create table persons(person_id integer primary key,name varchar(20) not null,Adhar_number varchar(20)  not null unique,Age integer check(Age>18));
+ERROR 1050 (42S01): Table 'persons' already exists
+mysql> create table person (perosn_id interger primary key,name varchar(20) not null,Adhar_number varchar(20) not null unique,Age integer check(Age>18));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'interger primary key,name varchar(20) not null,Adhar_number varchar(20) not null' at line 1
+mysql> show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| persons           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> create table orders (order_id integer primary key,order_numberintger not null,person_id integer,foreign key(person_id) references persons(person_id)on delete cascade);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null,person_id integer,foreign key(person_id) references persons(person_id)o' at line 1
+mysql> create table orders (order_id integer primary key,order_numberintger not
+null,person_id integer,foreign key(person_id) references persons(person_id)on delete restrict on update cascade);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null,person_id integer,foreign key(person_id) references persons(person_id)o' at line 1
+mysql> create table orders (order_id integer primary key,order_numberintger not
+null,person_id integer,foreign key(person_id) references persons(person_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null,person_id integer,foreign key(person_id) references persons(person_id))' at line 1
+mysql> show table persons;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'persons' at line 1
+mysql> desc persons;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| person_id    | int         | NO   | PRI | NULL    |       |
+| name         | varchar(20) | NO   |     | NULL    |       |
+| Adhar_number | varchar(20) | NO   | UNI | NULL    |       |
+| Age          | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table orders (order_id integer primary key,order_number integer not null,person_id integer,foreign key (person_id) references persons(person_id) on delete restrict on update cascade);
+Query OK, 0 rows affected (1.70 sec)
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   | PRI | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
+ERROR 1146 (42S02): Table 'company.employee' doesn't exist
+mysql> use companies;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | YES  |     | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table persons(person_id integer primary key,name varchar(20) not null,Adhar_number varchar(20)  not null unique,Age integer check(Age>18));
+Query OK, 0 rows affected (0.88 sec)
+
+mysql> create table orders (order_id integer primary key,order_number integer not null,person_id integer,foreign key (person_id) references persons(person_id) on delete restrict on update cascade);
+Query OK, 0 rows affected (1.90 sec)
+
+mysql> desc persons;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| person_id    | int         | NO   | PRI | NULL    |       |
+| name         | varchar(20) | NO   |     | NULL    |       |
+| Adhar_number | varchar(20) | NO   | UNI | NULL    |       |
+| Age          | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   | PRI | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee add primary key(emp_no);
+Query OK, 0 rows affected (1.76 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table department add primary key(dept_no);
+Query OK, 0 rows affected (1.65 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table employee add constraints department foreign key (dept_no) refrences department(dept_no) on delete restrict pn update cascade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'department foreign key (dept_no) refrences department(dept_no) on delete restric' at line 1
+mysql> alter table employee add constraints department foreign key (dept_no) refrences department(dept_no) on delete restrict on  update cascade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'department foreign key (dept_no) refrences department(dept_no) on delete restric' at line 1
+mysql> desc employeee;
+ERROR 1146 (42S02): Table 'companies.employeee' doesn't exist
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> desc deaprtment;
+ERROR 1146 (42S02): Table 'companies.deaprtment' doesn't exist
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+
+
+
+-================================================================================
+
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+10 rows in set (0.03 sec)
+
+mysql> use companies;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> desc Department;
+ERROR 1146 (42S02): Table 'companies.Department' doesn't exist
+mysql> show database companies;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database companies' at line 1
+mysql> show tables from companies;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| department          |
+| employee            |
+| orders              |
+| persons             |
++---------------------+
+4 rows in set (0.00 sec)
+
+mysql>  alter database companies rename to Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rename to Organization' at line 1
+mysql> ALTER databse companies modify name=Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databse companies modify name=Organization' at line 1
+mysql> alter database companies modify name="organization";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify name="organization"' at line 1
+mysql> alter database "companies" modify name="organization";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"companies" modify name="organization"' at line 1
+mysql> show databses;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databses' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> alter database companies modify name=Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify name=Organization' at line 1
+mysql> show tables;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| department          |
+| employee            |
+| orders              |
+| persons             |
++---------------------+
+4 rows in set (0.00 sec)
+
+mysql> ^Z
+[1]+  Stopped                 mysql -u 's2mcab1' -p
+s2mcabatch1@cscl6d14:~/Desktop/anju$ mysql -u 's2mcab1' -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> alter database companies modify name = Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify name = Organization' at line 1
+mysql> show tables from organisation;
++------------------------+
+| Tables_in_organisation |
++------------------------+
+| DEPT                   |
+| EMPLOYEE               |
++------------------------+
+2 rows in set (0.01 sec)
+
+mysql> alter database companies rename to Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rename to Organization' at line 1
+mysql> show sql syntax;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sql syntax' at line 1
+mysql> rename database companies to Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database companies to Organization' at line 1
+mysql> show tables in companies;
+show tables in companies;
+^C
+mysql> show tables in Organization;
+ERROR 1049 (42000): Unknown database 'Organization'
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use companies;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables from companies;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| department          |
+| employee            |
+| orders              |
+| persons             |
++---------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc persons;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| person_id    | int         | NO   | PRI | NULL    |       |
+| name         | varchar(20) | NO   |     | NULL    |       |
+| Adhar_number | varchar(20) | NO   | UNI | NULL    |       |
+| Age          | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   | PRI | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   | PRI | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table orders drop primary key;
+Query OK, 0 rows affected (2.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   |     | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table employee add foreign key (dept_no)references  department (dept_no) on delete carcade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'carcade' at line 1
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> alter table employee add foreign key (dept_no)references  department (dept_no) on delete cascade;
+Query OK, 0 rows affected (2.64 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  | MUL | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan',12/3/98,'jklm',2342,2,3400,manager);
+ERROR 1054 (42S22): Unknown column 'manager' in 'field list'
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan',12/3/98,'jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '0.040816326530612244' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan',12-3-98,'jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '-89' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','12sep','jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '12sep' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','12/3/98','jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '12/3/98' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,2,3400,'manager');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`companies`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_no`) REFERENCES `department` (`dept_no`) ON DELETE CASCADE)
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,2,3400,'manager');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`companies`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_no`) REFERENCES `department` (`dept_no`) ON DELETE CASCADE)
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','12sep','jklm',2342,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '12sep' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),
+    -> 
+    -> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),(1,'nwww','1998-04-23','hnmg',45654,7500,'md'),
+    -> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),(2,'nwww','1998-04-23','hnmg',45654,7500,'md'),(3,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(4,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) ' at line 3
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),(2,'nwww','1998-04-23','hnmg',45654,7500,'md'),(3,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(4,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+ERROR 1062 (23000): Duplicate entry '1' for key 'employee.PRIMARY'
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (2,'nwww','1998-04-23','hnmg',45654,7500,'md'),(3,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(4,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (5,'nwww','1998-04-23','hnmg',45654,7500,'md'),(6,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(7,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+Query OK, 3 rows affected (0.11 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+7 rows in set (0.01 sec)
+
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (8,'nwww','1998-04-23','hnmg',45654,7500,'md'),(9,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(10,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 8      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 9      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> upadte employee set emp_no=2 where emp_no=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte employee set emp_no=2 where emp_no=10' at line 1
+mysql> select * from employee where emp_no=10;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 10     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.01 sec)
+
+mysql> update employee set id=-1 where id=10;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update employee set emp_no=-1 where emp_no=10;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=10  where emp_no=2;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=2 where emp_no=-1;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 2      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 8      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 9      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee where emp_no=10;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 10     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> update employee set id=11 where id=10;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update employee set emp_no=11 where emp_no=10;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 11     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 2      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 8      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 9      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> update employee set emp_no=12 where emp_no=2;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=13 where emp_no=3;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=14 where emp_no=4;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=15 where emp_no=5;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=16 where emp_no=6;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=17 where emp_no=7;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=18 where emp_no=8;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=19 where emp_no=9;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 11     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 12     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 13     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 14     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 15     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 16     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 17     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 18     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 19     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> update employee set emp_no=2 where emp_no=11;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=3 where emp_no=12;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=4 where emp_no=13;
+Query OK, 1 row affected (0.27 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=5 where emp_no=14;
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=6 where emp_no=15;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=7 where emp_no=16;
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=8 where emp_no=17;
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=9 where emp_no=18;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=10 where emp_no=19;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> delte from employee where emp_no=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delte from employee where emp_no=10' at line 1
+mysql> delete from employee where emp_no=10;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+10 rows in set (0.03 sec)
+
+mysql> use companies;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> desc Department;
+ERROR 1146 (42S02): Table 'companies.Department' doesn't exist
+mysql> show database companies;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database companies' at line 1
+mysql> show tables from companies;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| department          |
+| employee            |
+| orders              |
+| persons             |
++---------------------+
+4 rows in set (0.00 sec)
+
+mysql>  alter database companies rename to Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rename to Organization' at line 1
+mysql> ALTER databse companies modify name=Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databse companies modify name=Organization' at line 1
+mysql> alter database companies modify name="organization";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify name="organization"' at line 1
+mysql> alter database "companies" modify name="organization";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"companies" modify name="organization"' at line 1
+mysql> show databses;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databses' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> alter database companies modify name=Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify name=Organization' at line 1
+mysql> show tables;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| department          |
+| employee            |
+| orders              |
+| persons             |
++---------------------+
+4 rows in set (0.00 sec)
+
+mysql> ^Z
+[1]+  Stopped                 mysql -u 's2mcab1' -p
+s2mcabatch1@cscl6d14:~/Desktop/anju$ mysql -u 's2mcab1' -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> alter database companies modify name = Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify name = Organization' at line 1
+mysql> show tables from organisation;
++------------------------+
+| Tables_in_organisation |
++------------------------+
+| DEPT                   |
+| EMPLOYEE               |
++------------------------+
+2 rows in set (0.01 sec)
+
+mysql> alter database companies rename to Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rename to Organization' at line 1
+mysql> show sql syntax;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sql syntax' at line 1
+mysql> rename database companies to Organization;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database companies to Organization' at line 1
+mysql> show tables in companies;
+show tables in companies;
+^C
+mysql> show tables in Organization;
+ERROR 1049 (42000): Unknown database 'Organization'
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| COMPANY            |
+| companies          |
+| company            |
+| information_schema |
+| mysql              |
+| organisation       |
+| performance_schema |
+| purchase           |
+| studentsdet        |
+| sys                |
++--------------------+
+10 rows in set (0.00 sec)
+
+mysql> use companies;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables from companies;
++---------------------+
+| Tables_in_companies |
++---------------------+
+| department          |
+| employee            |
+| orders              |
+| persons             |
++---------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc persons;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| person_id    | int         | NO   | PRI | NULL    |       |
+| name         | varchar(20) | NO   |     | NULL    |       |
+| Adhar_number | varchar(20) | NO   | UNI | NULL    |       |
+| Age          | int         | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   | PRI | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   | PRI | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table orders drop primary key;
+Query OK, 0 rows affected (2.26 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc orders;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| order_id     | int  | NO   |     | NULL    |       |
+| order_number | int  | NO   |     | NULL    |       |
+| person_id    | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table employee add foreign key (dept_no)references  department (dept_no) on delete carcade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'carcade' at line 1
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  |     | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> alter table employee add foreign key (dept_no)references  department (dept_no) on delete cascade;
+Query OK, 0 rows affected (2.64 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| emp_no      | varchar(10) | NO   | PRI | NULL    |       |
+| emp_name    | varchar(20) | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
+| address     | text        | YES  |     | NULL    |       |
+| mobile_no   | int         | YES  |     | NULL    |       |
+| dept_no     | varchar(20) | YES  | MUL | NULL    |       |
+| salary      | int         | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan',12/3/98,'jklm',2342,2,3400,manager);
+ERROR 1054 (42S22): Unknown column 'manager' in 'field list'
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan',12/3/98,'jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '0.040816326530612244' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan',12-3-98,'jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '-89' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','12sep','jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '12sep' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','12/3/98','jklm',2342,2,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '12/3/98' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,2,3400,'manager');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`companies`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_no`) REFERENCES `department` (`dept_no`) ON DELETE CASCADE)
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,2,3400,'manager');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`companies`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_no`) REFERENCES `department` (`dept_no`) ON DELETE CASCADE)
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','12sep','jklm',2342,3400,'manager');
+ERROR 1292 (22007): Incorrect date value: '12sep' for column 'dob' at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),
+    -> 
+    -> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),(1,'nwww','1998-04-23','hnmg',45654,7500,'md'),
+    -> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),(2,'nwww','1998-04-23','hnmg',45654,7500,'md'),(3,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(4,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) ' at line 3
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,3400,'manager'),(2,'nwww','1998-04-23','hnmg',45654,7500,'md'),(3,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(4,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+ERROR 1062 (23000): Duplicate entry '1' for key 'employee.PRIMARY'
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (2,'nwww','1998-04-23','hnmg',45654,7500,'md'),(3,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(4,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (5,'nwww','1998-04-23','hnmg',45654,7500,'md'),(6,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(7,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+Query OK, 3 rows affected (0.11 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+7 rows in set (0.01 sec)
+
+mysql>  insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (8,'nwww','1998-04-23','hnmg',45654,7500,'md'),(9,'bfg','1999-09-04','tygt',345343,2300,'accountant'),(10,'netd','2000-05-06','drtgf',23423,4500,'analyst');
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 8      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 9      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> upadte employee set emp_no=2 where emp_no=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte employee set emp_no=2 where emp_no=10' at line 1
+mysql> select * from employee where emp_no=10;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 10     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.01 sec)
+
+mysql> update employee set id=-1 where id=10;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update employee set emp_no=-1 where emp_no=10;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=10  where emp_no=2;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=2 where emp_no=-1;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 2      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 8      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 9      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee where emp_no=10;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 10     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> update employee set id=11 where id=10;
+ERROR 1054 (42S22): Unknown column 'id' in 'where clause'
+mysql> update employee set emp_no=11 where emp_no=10;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 11     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 2      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 3      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 4      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 5      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 6      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 7      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 8      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 9      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> update employee set emp_no=12 where emp_no=2;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=13 where emp_no=3;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=14 where emp_no=4;
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=15 where emp_no=5;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=16 where emp_no=6;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=17 where emp_no=7;
+Query OK, 1 row affected (0.15 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=18 where emp_no=8;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=19 where emp_no=9;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 11     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 12     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 13     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 14     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 15     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 16     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 17     | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 18     | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 19     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> update employee set emp_no=2 where emp_no=11;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=3 where emp_no=12;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=4 where emp_no=13;
+Query OK, 1 row affected (0.27 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=5 where emp_no=14;
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=6 where emp_no=15;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=7 where emp_no=16;
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=8 where emp_no=17;
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=9 where emp_no=18;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set emp_no=10 where emp_no=19;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 10     | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+10 rows in set (0.00 sec)
+
+mysql> delte from employee where emp_no=10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delte from employee where emp_no=10' at line 1
+mysql> delete from employee where emp_no=10;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (10,'jan','1998-02-12','jklm',2342,3400,'assi.manager');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager      |
+| 10     | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=10;
+Query OK, 1 row affected (0.21 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (10,'jan','1998-02-12','jklm',2342,3400,'assi.manager');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager      |
+| 10     | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=10;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into department (dept-no,dept_name) values (11,'science'),(12,'chem'),(13,'phy'),(14,'math');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-no,dept_name) values (11,'science'),(12,'chem'),(13,'phy'),(14,'math')' at line 1
+mysql> insert into department (dept_no,dept_name,) values (11,'jan');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') values (11,'jan')' at line 1
+mysql> insert into department (dept_no,dept_name) values (0,'gh');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into department (dept_no,dept_name) values (1,'gh');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into department (dept_no,dept_name) values (2,'gh');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into department (dept_no,dept_name) values (3,'gh');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into department (dept_no,dept_name) values (3,'gh');
+ERROR 1062 (23000): Duplicate entry '3' for key 'department.PRIMARY'
+mysql> 
+mysql> insert into department (dept_no,dept_name) values (4,'gh');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into department (dept_no,dept_name) values (5,'gh');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into department (dept_no,dept_name) values (6,'gh');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into department (dept_no,dept_name) values (7,'gh');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into department (dept_no,dept_name) values (8,'gh');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into department (dept_no,dept_name) values (9,'gh');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from department;
++---------+-----------+
+| dept_no | dept_name |
++---------+-----------+
+| 0       | gh        |
+| 1       | gh        |
+| 2       | gh        |
+| 3       | gh        |
+| 4       | gh        |
+| 5       | gh        |
+| 6       | gh        |
+| 7       | gh        |
+| 8       | gh        |
+| 9       | gh        |
++---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (0,'jan','1998-02-12','jklm',2342,3400,'assi.manager');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager      |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,0,3400,'manager');
+ERROR 1062 (23000): Duplicate entry '1' for key 'employee.PRIMARY'
+mysql> delete from employee where emp_no=1;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,0,3400,'manager');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=0;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (0,'jan','1998-02-12','jklm',2342,1,3400,'assi.manager');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (2,'jan','1998-02-12','jklm',2342,2,3400,'assi');
+ERROR 1062 (23000): Duplicate entry '2' for key 'employee.PRIMARY'
+mysql> delete from employee where emp_no=2;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (2,'jan','1998-02-12','jklm',2342,2,3400,'assi');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delete from employee where emp_no=3;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (3,'jani','1998-02-12','jklm',2342,3,3400,'md');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> delete from employee where emp_no=4;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (4,'janii','1998-02-12','jklm',2342,4,3400,'md');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete from employee where emp_no=5;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (5,'ja','1998-02-12','jklm',2342,5,3400,'clerk');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delete from employee where emp_no=6;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (5,'ja','1998-02-12','jklm',2342,6,3400,'clerk');
+ERROR 1062 (23000): Duplicate entry '5' for key 'employee.PRIMARY'
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (6,'ja','1998-02-12','jklm',2342,6,3400,'clerk');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> delete from employee where emp_no=7;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'ja','1998-02-12','jklm',2342,7,3400,'clerk');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete from employee where emp_no=8;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (8,'jam','1998-02-12','jklm',2342,8,3400,'accnt');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delete from employee where emp_no=9;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (9,'jami','1998-02-12','jklm',2342,9,3400,'accnt');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 6      | ja       | 1998-02-12 | jklm    |      2342 | 6       |   3400 | clerk        |
+| 7      | ja       | 1998-02-12 | jklm    |      2342 | 7       |   3400 | clerk        |
+| 8      | jam      | 1998-02-12 | jklm    |      2342 | 8       |   3400 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3400 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from department;
++---------+-----------+
+| dept_no | dept_name |
++---------+-----------+
+| 0       | gh        |
+| 1       | gh        |
+| 2       | gh        |
+| 3       | gh        |
+| 4       | gh        |
+| 5       | gh        |
+| 6       | gh        |
+| 7       | gh        |
+| 8       | gh        |
+| 9       | gh        |
++---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select emp_noemp_name from employee join department on employee.dept_id=department.dept_id where departments.dept_id=2;
+ERROR 1054 (42S22): Unknown column 'emp_noemp_name' in 'field list'
+mysql> select emp_no,emp_name from employee join department on employee.dept_id=department.dept_id where departments.dept_id=2;
+ERROR 1054 (42S22): Unknown column 'departments.dept_id' in 'where clause'
+mysql> select emp_no,emp_name from employee join department on employee.dept_no=department.dept_no where departments.dept_no=2;
+ERROR 1054 (42S22): Unknown column 'departments.dept_no' in 'where clause'
+mysql> select emp_no,emp_name from employee join department on employee.dept_no=department.dept_no where department.dept_no=2;
++--------+----------+
+| emp_no | emp_name |
++--------+----------+
+| 2      | jan      |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> delete from employee where emp_no=9;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (9,'jami','1998-02-12','jklm',2342,9,3500,'accnt');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 6      | ja       | 1998-02-12 | jklm    |      2342 | 6       |   3400 | clerk        |
+| 7      | ja       | 1998-02-12 | jklm    |      2342 | 7       |   3400 | clerk        |
+| 8      | jam      | 1998-02-12 | jklm    |      2342 | 8       |   3400 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=8;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (8,'jamil','1998-02-12','jklm',2342,9,35000,'accnt');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 6      | ja       | 1998-02-12 | jklm    |      2342 | 6       |   3400 | clerk        |
+| 7      | ja       | 1998-02-12 | jklm    |      2342 | 7       |   3400 | clerk        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.01 sec)
+
+mysql> delete from employee where emp_no=7;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'jamila','1998-02-12','jklm',2342,9,20000,'accnt');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete from employee where emp_no=6;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'jamila','1998-02-12','jklm',2342,97,20000,'clerk');
+ERROR 1062 (23000): Duplicate entry '7' for key 'employee.PRIMARY'
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'jamila','1998-02-12','jklm',2342,7,20000,'clerk');
+ERROR 1062 (23000): Duplicate entry '7' for key 'employee.PRIMARY'
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=1;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jamila','1998-02-12','jklm',2342,0,250000,'manager');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> delete from employee where emp_no=2;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (2,'jamila','1998-02-12','jklm',2342,2,7000,'assir');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       | 250000 | manager      |
+| 2      | jamila   | 1998-02-12 | jklm    |      2342 | 2       |   7000 | assir        |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from employee order by salary desc;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       | 250000 | manager      |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 2      | jamila   | 1998-02-12 | jklm    |      2342 | 2       |   7000 | assir        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from employee where salary between 2000 and 5000;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct designation from employee;
++--------------+
+| designation  |
++--------------+
+| assi.manager |
+| manager      |
+| assir        |
+| md           |
+| clerk        |
+| accnt        |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> update employee set manager salary=45000 where salary=250000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary=45000 where salary=250000' at line 1
+mysql> upadte employee set salary =45000 where designation='manager';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte employee set salary =45000 where designation='manager'' at line 1
+mysql> update employee set salary ='45000' where designation='manager';
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager      |
+| 2      | jamila   | 1998-02-12 | jklm    |      2342 | 2       |   7000 | assir        |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from employee where salary=7000;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager      |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee where salary > 20000 and length(emp_name)>=3;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager     |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt       |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where designation 'manager' or 'computer assisatnt';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''manager' or 'computer assisatnt'' at line 1
+mysql> select * from employee where designation in ('manager','computer assisatnt');
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (10,'jan','1998-02-12','jklm',2342,3400,'assi.manager');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager      |
+| 10     | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=10;
+Query OK, 1 row affected (0.21 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (10,'jan','1998-02-12','jklm',2342,3400,'assi.manager');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager      |
+| 10     | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=10;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> desc department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_no   | varchar(10) | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into department (dept-no,dept_name) values (11,'science'),(12,'chem'),(13,'phy'),(14,'math');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-no,dept_name) values (11,'science'),(12,'chem'),(13,'phy'),(14,'math')' at line 1
+mysql> insert into department (dept_no,dept_name,) values (11,'jan');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') values (11,'jan')' at line 1
+mysql> insert into department (dept_no,dept_name) values (0,'gh');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into department (dept_no,dept_name) values (1,'gh');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into department (dept_no,dept_name) values (2,'gh');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into department (dept_no,dept_name) values (3,'gh');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into department (dept_no,dept_name) values (3,'gh');
+ERROR 1062 (23000): Duplicate entry '3' for key 'department.PRIMARY'
+mysql> 
+mysql> insert into department (dept_no,dept_name) values (4,'gh');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into department (dept_no,dept_name) values (5,'gh');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into department (dept_no,dept_name) values (6,'gh');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into department (dept_no,dept_name) values (7,'gh');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into department (dept_no,dept_name) values (8,'gh');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into department (dept_no,dept_name) values (9,'gh');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from department;
++---------+-----------+
+| dept_no | dept_name |
++---------+-----------+
+| 0       | gh        |
+| 1       | gh        |
+| 2       | gh        |
+| 3       | gh        |
+| 4       | gh        |
+| 5       | gh        |
+| 6       | gh        |
+| 7       | gh        |
+| 8       | gh        |
+| 9       | gh        |
++---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager     |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant  |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst     |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md          |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,salary,designation) values (0,'jan','1998-02-12','jklm',2342,3400,'assi.manager');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | manager      |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,0,3400,'manager');
+ERROR 1062 (23000): Duplicate entry '1' for key 'employee.PRIMARY'
+mysql> delete from employee where emp_no=1;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jan','1998-02-12','jklm',2342,0,3400,'manager');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | NULL    |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 3      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 4      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 5      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 6      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
+| 7      | bfg      | 1999-09-04 | tygt    |    345343 | NULL    |   2300 | accountant   |
+| 8      | netd     | 2000-05-06 | drtgf   |     23423 | NULL    |   4500 | analyst      |
+| 9      | nwww     | 1998-04-23 | hnmg    |     45654 | NULL    |   7500 | md           |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=0;
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (0,'jan','1998-02-12','jklm',2342,1,3400,'assi.manager');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (2,'jan','1998-02-12','jklm',2342,2,3400,'assi');
+ERROR 1062 (23000): Duplicate entry '2' for key 'employee.PRIMARY'
+mysql> delete from employee where emp_no=2;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (2,'jan','1998-02-12','jklm',2342,2,3400,'assi');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delete from employee where emp_no=3;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (3,'jani','1998-02-12','jklm',2342,3,3400,'md');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> delete from employee where emp_no=4;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (4,'janii','1998-02-12','jklm',2342,4,3400,'md');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete from employee where emp_no=5;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (5,'ja','1998-02-12','jklm',2342,5,3400,'clerk');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delete from employee where emp_no=6;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (5,'ja','1998-02-12','jklm',2342,6,3400,'clerk');
+ERROR 1062 (23000): Duplicate entry '5' for key 'employee.PRIMARY'
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (6,'ja','1998-02-12','jklm',2342,6,3400,'clerk');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> delete from employee where emp_no=7;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'ja','1998-02-12','jklm',2342,7,3400,'clerk');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete from employee where emp_no=8;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (8,'jam','1998-02-12','jklm',2342,8,3400,'accnt');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> delete from employee where emp_no=9;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (9,'jami','1998-02-12','jklm',2342,9,3400,'accnt');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 6      | ja       | 1998-02-12 | jklm    |      2342 | 6       |   3400 | clerk        |
+| 7      | ja       | 1998-02-12 | jklm    |      2342 | 7       |   3400 | clerk        |
+| 8      | jam      | 1998-02-12 | jklm    |      2342 | 8       |   3400 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3400 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from department;
++---------+-----------+
+| dept_no | dept_name |
++---------+-----------+
+| 0       | gh        |
+| 1       | gh        |
+| 2       | gh        |
+| 3       | gh        |
+| 4       | gh        |
+| 5       | gh        |
+| 6       | gh        |
+| 7       | gh        |
+| 8       | gh        |
+| 9       | gh        |
++---------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select emp_noemp_name from employee join department on employee.dept_id=department.dept_id where departments.dept_id=2;
+ERROR 1054 (42S22): Unknown column 'emp_noemp_name' in 'field list'
+mysql> select emp_no,emp_name from employee join department on employee.dept_id=department.dept_id where departments.dept_id=2;
+ERROR 1054 (42S22): Unknown column 'departments.dept_id' in 'where clause'
+mysql> select emp_no,emp_name from employee join department on employee.dept_no=department.dept_no where departments.dept_no=2;
+ERROR 1054 (42S22): Unknown column 'departments.dept_no' in 'where clause'
+mysql> select emp_no,emp_name from employee join department on employee.dept_no=department.dept_no where department.dept_no=2;
++--------+----------+
+| emp_no | emp_name |
++--------+----------+
+| 2      | jan      |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql> delete from employee where emp_no=9;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (9,'jami','1998-02-12','jklm',2342,9,3500,'accnt');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 6      | ja       | 1998-02-12 | jklm    |      2342 | 6       |   3400 | clerk        |
+| 7      | ja       | 1998-02-12 | jklm    |      2342 | 7       |   3400 | clerk        |
+| 8      | jam      | 1998-02-12 | jklm    |      2342 | 8       |   3400 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=8;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (8,'jamil','1998-02-12','jklm',2342,9,35000,'accnt');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 6      | ja       | 1998-02-12 | jklm    |      2342 | 6       |   3400 | clerk        |
+| 7      | ja       | 1998-02-12 | jklm    |      2342 | 7       |   3400 | clerk        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+10 rows in set (0.01 sec)
+
+mysql> delete from employee where emp_no=7;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'jamila','1998-02-12','jklm',2342,9,20000,'accnt');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> delete from employee where emp_no=6;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'jamila','1998-02-12','jklm',2342,97,20000,'clerk');
+ERROR 1062 (23000): Duplicate entry '7' for key 'employee.PRIMARY'
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (7,'jamila','1998-02-12','jklm',2342,7,20000,'clerk');
+ERROR 1062 (23000): Duplicate entry '7' for key 'employee.PRIMARY'
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jan      | 1998-02-12 | jklm    |      2342 | 0       |   3400 | manager      |
+| 2      | jan      | 1998-02-12 | jklm    |      2342 | 2       |   3400 | assi         |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_no=1;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (1,'jamila','1998-02-12','jklm',2342,0,250000,'manager');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> delete from employee where emp_no=2;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee (emp_no,emp_name,dob,address,mobile_no,dept_no,salary,designation) values (2,'jamila','1998-02-12','jklm',2342,2,7000,'assir');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       | 250000 | manager      |
+| 2      | jamila   | 1998-02-12 | jklm    |      2342 | 2       |   7000 | assir        |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from employee order by salary desc;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       | 250000 | manager      |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 2      | jamila   | 1998-02-12 | jklm    |      2342 | 2       |   7000 | assir        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from employee where salary between 2000 and 5000;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct designation from employee;
++--------------+
+| designation  |
++--------------+
+| assi.manager |
+| manager      |
+| assir        |
+| md           |
+| clerk        |
+| accnt        |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> update employee set manager salary=45000 where salary=250000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary=45000 where salary=250000' at line 1
+mysql> upadte employee set salary =45000 where designation='manager';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'upadte employee set salary =45000 where designation='manager'' at line 1
+mysql> update employee set salary ='45000' where designation='manager';
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager      |
+| 2      | jamila   | 1998-02-12 | jklm    |      2342 | 2       |   7000 | assir        |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+9 rows in set (0.00 sec)
+
+mysql> delete from employee where salary=7000;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from employee;
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation  |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+| 0      | jan      | 1998-02-12 | jklm    |      2342 | 1       |   3400 | assi.manager |
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager      |
+| 3      | jani     | 1998-02-12 | jklm    |      2342 | 3       |   3400 | md           |
+| 4      | janii    | 1998-02-12 | jklm    |      2342 | 4       |   3400 | md           |
+| 5      | ja       | 1998-02-12 | jklm    |      2342 | 5       |   3400 | clerk        |
+| 7      | jamila   | 1998-02-12 | jklm    |      2342 | 9       |  20000 | accnt        |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt        |
+| 9      | jami     | 1998-02-12 | jklm    |      2342 | 9       |   3500 | accnt        |
++--------+----------+------------+---------+-----------+---------+--------+--------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee where salary > 20000 and length(emp_name)>=3;
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager     |
+| 8      | jamil    | 1998-02-12 | jklm    |      2342 | 9       |  35000 | accnt       |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where designation 'manager' or 'computer assisatnt';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''manager' or 'computer assisatnt'' at line 1
+mysql> select * from employee where designation in ('manager','computer assisatnt');
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| emp_no | emp_name | dob        | address | mobile_no | dept_no | salary | designation |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+| 1      | jamila   | 1998-02-12 | jklm    |      2342 | 0       |  45000 | manager     |
++--------+----------+------------+---------+-----------+---------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
