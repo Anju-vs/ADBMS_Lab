@@ -838,4 +838,108 @@ mysql> create view Delhi_employee as select e.first_name || ' ' || e.last_name a
     '> create view Delhi_employee as select e.first_name || ' ' || e.last_name as employee_name , e.employee_id , e.phone_number,j.job_title,d.department_name ,m.first_name || ' ' || m.last_name as manager_name from employees e join jobs j on e.job_id =j.job_id join departments d on e.department_id = d.department_id join locations l on d.location_id =l.location_id left join employees m on e.manager_id =m.employee_id where l.city='Deselect employees.employee_id , employees.first_name , employees.last_name , employees.email , departments.department_name , locations.loc
 
 
+mysql> select * from locations where city='new delhi';
++-------------+----------------+-------------+-----------+----------------+------------+
+| location_id | street_address | postal_code | city      | state_province | country_id |
++-------------+----------------+-------------+-----------+----------------+------------+
+|        1000 | 121 main st    | 45643       | new delhi | ny             | us         |
++-------------+----------------+-------------+-----------+----------------+------------+
+1 row in set (0.00 sec)
+
+mysql> create view delhi_employees as select e.first_name ,e.last_name ,e.employee_id,e.phone_number,j.job_title,d.department_name,m.first_name as manager_first_name,m.last_name as manager_last_name from employees e join jobs on e.job_id=j.job_id join departments d on e.department_id=d.department_id join locations l on d.location_id=l.location_id left join employees m on e.manager_id =m.employee_id where l.city='new delhi';
+ERROR 1054 (42S22): Unknown column 'j.job_title' in 'field list'
+mysql> create view delhi_employees as select e.first_name ,e.last_name ,e.employee_id,e.phone_number,j.job_title,d.department_name,m.first_name as manager_first_name,m.last_name as manager_last_name from employees e join jobs on e.job_id=j.job_id join departments d on e.department_id=d.department_id join locations l on d.location_id=l.location_id left join employees m on e.manager_id =m.employee_id where l.city='new delhi';
+ERROR 1054 (42S22): Unknown column 'j.job_title' in 'field list'
+mysql> create view delhi_employees as select e.first_name ,e.last_name ,e.employee_id,e.phone_number,d.department_name,m.first_name as manager_first_name,m.last_name as manager_last_name from employees e join jobs on e.job_id=j.job_id join departments d on e.department_id=d.department_id join locations l on d.location_id=l.location_id left join employees m on e.manager_id =m.employee_id where l.city='new delhi';
+ERROR 1054 (42S22): Unknown column 'j.job_id' in 'on clause'
+mysql> CREATE VIEW delhi_employees AS
+    -> SELECT 
+    ->     e.first_name,
+    ->     e.last_name,
+    ->     e.employee_id,
+    ->     e.phone_number,
+    ->     j.job_title,
+    ->     d.department_name,
+    ->     m.first_name AS manager_first_name,
+    ->     m.last_name AS manager_last_name
+    -> FROM employees e
+    -> JOIN jobs j ON e.job_id = j.job_id
+    -> JOIN departments d ON e.department_id = d.department_id
+    -> JOIN locations l ON d.location_id = l.location_id
+    -> LEFT JOIN employees m ON e.manager_id = m.employee_id
+    -> WHERE l.city = 'New Delhi';
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> select * from delhi_employees;
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+| first_name | last_name | employee_id | phone_number | job_title         | department_name | manager_first_name | manager_last_name |
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+| smith      | doe       |         101 | 234-456-2345 | software engineer | engineering     | smith              | doe               |
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+1 row in set (0.04 sec)
+
+mysql> select employee_name from delhi_employees where job_title='Manager' and department_name='Finance';
+ERROR 1054 (42S22): Unknown column 'employee_name' in 'field list'
+mysql> select first_name from delhi_employees where job_title='Manager' and department_name='Finance';
+Empty set (0.00 sec)
+
+mysql> select * from delhi_employees;
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+| first_name | last_name | employee_id | phone_number | job_title         | department_name | manager_first_name | manager_last_name |
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+| smith      | doe       |         101 | 234-456-2345 | software engineer | engineering     | smith              | doe               |
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> select e.first_name from delhi_employees where job_title='Manager' and department_name='Finance';
+ERROR 1054 (42S22): Unknown column 'e.first_name' in 'field list'
+mysql> SELECT e.first_name
+    -> FROM delhi_employees e
+    -> WHERE e.job_title = 'Manager' 
+    ->   AND e.department_name = 'Finance';
+Empty set (0.00 sec)
+
+mysql> update delhi_employees set phone_number='1235674623' where employee_name like 'smith';
+ERROR 1288 (HY000): The target table delhi_employees of the UPDATE is not updatable
+mysql> UPDATE employees
+    -> SET phone_number = '1235674623'
+    -> WHERE LOWER(first_name) || ' ' || LOWER(last_name) LIKE 'smith';
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: 'smith'
+mysql> UPDATE employees
+    -> SET phone_number = '1235674623'
+    -> WHERE LOWER(first_name) = 'smith';
+Query OK, 2 rows affected (0.10 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from delhi_employees;
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+| first_name | last_name | employee_id | phone_number | job_title         | department_name | manager_first_name | manager_last_name |
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+| smith      | doe       |         101 | 1235674623   | software engineer | engineering     | smith              | doe               |
++------------+-----------+-------------+--------------+-------------------+-----------------+--------------------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees where employee_id not in (select employee_id from dependents);
+Empty set (0.03 sec)
+
+mysql> select * from employees where manager_id = 101 union select * from employees where manager_id =201;
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|         101 | smith      | doe       | smith343@example.com | 1235674623   | 2020-06-15 |      1 |  90000 |        101 |            30 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employees where employee_id in (select employee_id from dependents);
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+| employee_id | first_name | last_name | email                | phone_number | hire_date  | job_id | salary | manager_id | department_id |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+|         101 | smith      | doe       | smith343@example.com | 1235674623   | 2020-06-15 |      1 |  90000 |        101 |            30 |
+|         102 | smith      | taylor    | smith43@example.com  | 1235674623   | 2020-06-14 |      2 |  95000 |        102 |            31 |
+|         103 | leela      | bob       | leela23@example.com  | 345-564-3452 | 2021-05-14 |      3 |  75000 |        103 |            32 |
+|         104 | lima       | benny     | lima44@example.com   | 234-564-2341 | 2023-06-11 |      4 |  85000 |        104 |            33 |
++-------------+------------+-----------+----------------------+--------------+------------+--------+--------+------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> 
 
